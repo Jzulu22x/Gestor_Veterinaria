@@ -69,10 +69,18 @@ public class ManagerApp
         }
 
         Console.WriteLine("Please enter your dog's temperament: ");
-        string? temperament = Console.ReadLine();
+        string? temperament = Console.ReadLine()?.ToLower();
         if (string.IsNullOrEmpty(temperament))
         {
             Console.WriteLine("Error: Temperament cannot be empty.");
+            WaitForKey();
+            return CreateDog(id);
+        }
+        if(temperament != "shy" && temperament != "aggressive" && temperament != "normal")
+        {
+            Console.WriteLine("Error: Invalid temperament.");
+            Console.WriteLine("Valid temperaments are: ");
+            Console.WriteLine("Shy, Aggressive, Normal");
             WaitForKey();
             return CreateDog(id);
         }
@@ -96,14 +104,21 @@ public class ManagerApp
         }
 
         Console.WriteLine("Please enter your dog's coat type: ");
-        string? coatType = Console.ReadLine();
+        string? coatType = Console.ReadLine()?.ToLower();
         if (string.IsNullOrEmpty(coatType))
         {
             Console.WriteLine("Error: Coat type cannot be empty.");
             WaitForKey();
             return CreateDog(id);
         }
-        
+        if(coatType != "hairless" && coatType != "short hair" && coatType != "medium-haired" && coatType != "long hair")
+        {
+            Console.WriteLine("Error: Invalid coat type.");
+            Console.WriteLine("Valid coat types are: ");
+            Console.WriteLine("Hairless, Short Hair, Medium-Haired, Long Hair");
+            WaitForKey();
+            return CreateDog(id);
+        }
         return new Dog(id, name, BirthDate, breed, color, weightInKg, breedingStatus, temperament, microchipNumber, barkVolume, coatType);
     }
     

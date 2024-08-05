@@ -30,13 +30,22 @@ public class Dog : Animal
         else 
         {
             Console.WriteLine("The dog is not in a breeding mate.");
+            BreedingStatud = true;
         }
     }
 
     public void Hairdress()
     {
         Console.WriteLine($"The dog has {CoatType} hair.");
-        Console.WriteLine($"The dog's bark volume is {BarkVolume}.");
+        if (CoatType == "hairless" && CoatType == "short hair" )
+        {
+            Console.WriteLine("The dog is not suitable for hairdressing.");
+        }
+        else
+        {
+            Console.WriteLine("The dog is suitable for hairdressing.");
+            CoatType = "short hair";
+        }
     }
 
     public override void ShowInformation()

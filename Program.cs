@@ -8,7 +8,7 @@ int id = 0;
 while (run)
 {
 
-    int IdToSend = (instanceVeterinary.Cats.Count()) + (instanceVeterinary.Dogs.Count()) + 1;       
+    int IdToSend = (instanceVeterinary.Cats.Count()) + (instanceVeterinary.Dogs.Count()) + 1;
     Console.Clear();
     ManagerApp.ShowHeader();
     Console.WriteLine("Welcome to the Animal Shelter!");
@@ -45,7 +45,9 @@ while (run)
             Console.WriteLine("4. Delete a cat");
             Console.WriteLine("5. Update a dog");
             Console.WriteLine("6. Update a cat");
-            Console.WriteLine("7. Exit to main menu");
+            Console.WriteLine("7. Neutering an animal");
+            Console.WriteLine("8. Hairdress Dog");
+            Console.WriteLine("9. Exit to main menu");
             ManagerApp.ShowFooter();
 
             int animalChoice;
@@ -63,12 +65,14 @@ while (run)
             {
                 case 1:
                     Dog newDog = ManagerApp.CreateDog(IdToSend);
+                    Console.WriteLine();
                     instanceVeterinary.SaveDog(newDog);
                     break;
 
                 case 2:
-                    id ++;
+                    id++;
                     Cat newCat = ManagerApp.CreateCat(IdToSend);
+                    Console.WriteLine();
                     instanceVeterinary.SaveCat(newCat);
                     break;
 
@@ -116,7 +120,7 @@ while (run)
                     }
 
                     ManagerApp.ShowSeparator();
-                    
+
                     Dog? dogToUpdate = instanceVeterinary.Dogs.Find(d => d.GetId() == dogUpdateId);
                     if (dogToUpdate == null)
                     {
@@ -125,7 +129,8 @@ while (run)
                         break;
                     }
 
-                    instanceVeterinary.UpdateDog(dogToUpdate);
+                    instanceVeterinary.UpdateDog(dogUpdateId);
+                    instanceVeterinary.Dogs.OrderBy(d => d.GetId());
                     break;
 
                 case 6:
@@ -150,12 +155,66 @@ while (run)
                         break;
                     }
 
-                    instanceVeterinary.UpdateCat(catToUpdate);
+                    instanceVeterinary.UpdateCat(catUpdateId);
+                    instanceVeterinary.Cats.OrderBy(c => c.GetId());
                     break;
 
                 case 7:
+                    Console.WriteLine("Enter the ID of the animal you want to neuter:");
+                    ManagerApp.ShowSeparator();
+                    int animalNeuterId;
+                    if (!int.TryParse(Console.ReadLine(), out animalNeuterId))
+                    {
+                        Console.WriteLine();
+                        Console.WriteLine("Invalid input. Please enter a number.");
+                        ManagerApp.WaitForKey();
+                        break;
+                    }
 
+                    Animal? catToUpdateNeuter = instanceVeterinary.Cats.Find(c => c.GetId() == animalNeuterId);
+                    Animal? dodToUpdateNeuter = instanceVeterinary.Dogs.Find(d => d.GetId() == animalNeuterId);
+
+                    if (catToUpdateNeuter == null && dodToUpdateNeuter == null)
+                    {
+                        Console.WriteLine("Error: Animal not found.");
+                        ManagerApp.WaitForKey();
+                        break;
+                    }
+
+                    if (catToUpdateNeuter != null)
+                    {
+                        instanceVeterinary.UpdateCat(animalNeuterId);
+                    }
+                    else
+                    {
+                        instanceVeterinary.UpdateDog(animalNeuterId);
+                    }
                     break;
+                case 8:
+                    Console.WriteLine("Enter the ID of the dog you want to hairdress:");
+                    ManagerApp.ShowSeparator();
+                    int dogHairdressId;
+                    if (!int.TryParse(Console.ReadLine(), out dogHairdressId))
+                    {
+                        Console.WriteLine();
+                        Console.WriteLine("Invalid input. Please enter a number.");
+                        ManagerApp.WaitForKey();
+                        break;
+                    }
+                    Dog? dogToUpdateHairdress = instanceVeterinary.Dogs.Find(d => d.GetId() == dogHairdressId);
+                    if (dogToUpdateHairdress == null)
+                    {
+                        Console.WriteLine("Error: Dog not found.");
+                        ManagerApp.WaitForKey();
+                        break;
+                    }
+                    dogToUpdateHairdress.Hairdress();
+                    break;
+
+                case 9:
+                    Console.WriteLine("Thanks for use the program");
+                    break;
+
                 default:
                     Console.WriteLine("Invalid option. Please choose a number between 1 and 2.");
                     break;
@@ -173,7 +232,7 @@ while (run)
             Console.WriteLine("1. List animal");
             Console.WriteLine("2. List all pets");
             Console.WriteLine("3. Exit to main menu");
-            
+
             ManagerApp.ShowFooter();
 
             int listChoice;
@@ -192,7 +251,7 @@ while (run)
                 case 1:
                     Console.WriteLine("Please enter the type of the animal");
                     string? type = Console.ReadLine()?.ToLower();
-                    if(string.IsNullOrEmpty(type))
+                    if (string.IsNullOrEmpty(type))
                     {
                         Console.WriteLine("Error: Type cannot be empty.");
                         ManagerApp.WaitForKey();

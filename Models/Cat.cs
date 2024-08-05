@@ -19,11 +19,12 @@ public class Cat : Animal
     {
         if (BreedingStatud == true)
         {
-            Console.WriteLine("The dog has been castrated.");
+            Console.WriteLine("The cat has been castrated.");
         }
         else 
         {
-            Console.WriteLine("The dog is not in a breeding mate.");
+            Console.WriteLine("The cat is not in a breeding mate.");
+            BreedingStatud = true;
         }
     }
 

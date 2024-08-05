@@ -35,17 +35,24 @@ public class VeterinaryClinic
 
     }
 
-    public void UpdateDog(Dog dog)
+    public void UpdateDog(int id)
     {
-        dog = ManagerApp.CreateDog(dog.GetId());
-        Console.WriteLine($"Dog {dog.GetName()} updated successfully.");
+        var oldDog = Dogs.FirstOrDefault(d=> d.GetId() == id);
+        Dogs.Remove(oldDog);
+        var newDog = ManagerApp.CreateDog(id);
+        Dogs.Add(newDog);
+        Console.WriteLine();
+        Console.WriteLine($"Dog {oldDog.GetName()} updated successfully.");
         ManagerApp.WaitForKey();
     }
 
-    public void UpdateCat(Cat cat)
+    public void UpdateCat(int id)
     {
-        cat = ManagerApp.CreateCat(cat.GetId());
-        Console.WriteLine($"Cat {cat.GetName()} updated successfully.");
+        var oldCat = Cats.FirstOrDefault(c=> c.GetId() == id);
+        Cats.Remove(oldCat);
+        var newCat = ManagerApp.CreateCat(id);
+        Console.WriteLine();
+        Console.WriteLine($"Cat {oldCat.GetName()} updated successfully.");
         ManagerApp.WaitForKey();
     }
 
@@ -101,7 +108,9 @@ public class VeterinaryClinic
             Console.WriteLine("");
             foreach (var cat in Cats)
             {
+                ManagerApp.ShowSeparator();
                 cat.ShowInformation();
+                ManagerApp.ShowSeparator();
             }
         }
         else
@@ -118,15 +127,21 @@ public class VeterinaryClinic
 
         if (dog!= null)
         {
+            ManagerApp.ShowSeparator();
             dog.ShowInformation();
+            ManagerApp.ShowSeparator();
         }
         else if (cat!= null)
         {
+            ManagerApp.ShowSeparator();
             cat.ShowInformation();
+            ManagerApp.ShowSeparator();
         }
         else
         {
+            ManagerApp.ShowSeparator();
             Console.WriteLine("Error: Patient not found");
+            ManagerApp.ShowSeparator();
         }
         ManagerApp.WaitForKey();
 
