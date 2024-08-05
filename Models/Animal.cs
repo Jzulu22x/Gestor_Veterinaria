@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 
 namespace Filtro_5_8_2024.Models;
-public class Animal
+public abstract class Animal
 {
     protected int Id { get; set; }
     protected string? Name { get; set; }
@@ -23,22 +23,12 @@ public class Animal
         WeightInKg = weightinkg;
     }
 
-    public void ShowInformation()
-    {
-        Console.WriteLine($"ID: {Id}");
-        Console.WriteLine($"Name: {Name}");
-        Console.WriteLine($"Birthdate: {BirthDate}");
-        Console.WriteLine($"Age in months: {CalculateAgeInMonths()}");
-        Console.WriteLine($"Breed: {Breed}");
-        Console.WriteLine($"Color: {Color}");
-        Console.WriteLine($"Weight (kg): {WeightInKg}");
-        Console.WriteLine("---------------------------");
-    }
+    public abstract void ShowInformation();
     
     protected int CalculateAgeInMonths()
     {
-        int monthsActually = DateTime.Now.Year * 12;
-        int monthsAnimal = BirthDate.Year * 12;
+        int monthsActually = (DateTime.Now.Year * 12) + DateTime.Now.Month;
+        int monthsAnimal = (BirthDate.Year * 12) + BirthDate.Month;
         return monthsActually - monthsAnimal;
     }
 
@@ -57,7 +47,6 @@ public class Animal
             Console.WriteLine("This animal is an adult.");
         }
 
-        Console.WriteLine("---------------------------");
 
     }
 

@@ -38,4 +38,21 @@ public class Dog : Animal
         Console.WriteLine($"The dog has {CoatType} hair.");
         Console.WriteLine($"The dog's bark volume is {BarkVolume}.");
     }
+
+    public override void ShowInformation()
+    {
+        Console.WriteLine($"ID: {Id}");
+        Console.WriteLine($"Name: {Name}");
+        Console.WriteLine($"Birthdate: {BirthDate}");
+        Console.WriteLine($"Age in months: {CalculateAgeInMonths()}");
+        Console.WriteLine($"Breed: {Breed}");
+        Console.WriteLine($"Color: {Color}");
+        Console.WriteLine($"Weight (kg): {WeightInKg}");
+        Console.WriteLine($"Breeding status: {BreedingStatud}");
+        Console.WriteLine($"Temperament: {Temperament}");
+        Console.WriteLine($"Microchip number: {MicrochipNumber}");
+        Console.WriteLine($"Bark volume: {BarkVolume}");
+        Console.WriteLine($"Coat type: {CoatType}");
+        BasicReview();
+    }
 }
